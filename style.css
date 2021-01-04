@@ -117,3 +117,10 @@ h1 {
 .label-score {
   margin-bottom: 2rem;
 }
+
+.resetHighScore {
+  margin-top: 2rem;
+  width: 200px;
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
+}
