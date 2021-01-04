@@ -5,9 +5,12 @@ const btnCheck = document.querySelector('.check');
 const message = document.querySelector('.message');
 const totalScore = document.querySelector('.score');
 const highscore = document.querySelector('.highscore');
+const resethighScore = document.querySelector('.resetHighScore');
 
 let randomNumber = Math.trunc(Math.random() * 20) + 1;
+console.log(randomNumber);
 let score = 20;
+highscore.textContent = localStorage.getItem('higher') ? localStorage.getItem('higher') : 0;
 
 // Show messages
 function showMessage(text) {
@@ -26,6 +29,14 @@ function checkScore() {
   }
 }
 
+// Check High Score
+function checkHighScore() {
+  if (score > +localStorage.getItem('higher')) {
+    localStorage.setItem('higher', score);
+    highscore.textContent = localStorage.getItem('higher');
+  }
+}
+
 // Check If Number is Correct
 function checkNumber() {
   if (guess.value === '') {
@@ -35,6 +46,7 @@ function checkNumber() {
     number.textContent = guess.value;
     number.style.width = '30rem';
     showMessage('Correct Number!');
+    checkHighScore();
   } else {
     if (+guess.value > randomNumber) {
       showMessage('Too High!');
@@ -46,5 +58,12 @@ function checkNumber() {
   }
 }
 
+function resetHighScore() {
+  localStorage.removeItem('higher');
+  highscore.textContent = 0;
+}
+
 // Event listeners
 btnCheck.addEventListener('click', checkNumber);
+resethighScore.addEventListener('click', resetHighScore);
+btnAgain.addEventListener('click', () => location.reload());
